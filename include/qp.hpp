@@ -531,7 +531,7 @@ public:
     void setAttr(
         std::uint32_t attr1,
         void const * attr2 = nullptr);
-    void start(QPrioSpec const prioSpec,
+    virtual void start(QPrioSpec const prioSpec,
         QEvtPtr * const qSto, std::uint_fast16_t const qLen,
         void * const stkSto, std::uint_fast16_t const stkSize,
         void const * const par = nullptr);
@@ -541,16 +541,16 @@ public:
 #endif // def QACTIVE_CAN_STOP
     void register_() noexcept;
     void unregister_() noexcept;
-    void post_(QEvt const * const e,
+    virtual void post_(QEvt const * const e,
         void const * const sender) noexcept
     {
         // delegate to postx_() with margin==QF::NO_MARGIN
         static_cast<void>(postx_(e, QF::NO_MARGIN, sender));
     }
-    bool postx_(QEvt const * const e,
+    virtual bool postx_(QEvt const * const e,
         std::uint_fast16_t const margin,
         void const * const sender) noexcept;
-    void postLIFO(QEvt const * const e) noexcept;
+    virtual void postLIFO(QEvt const * const e) noexcept;
     QEvt const * get_() noexcept;
     static std::uint16_t getQueueUse(
         std::uint_fast8_t const prio) noexcept;
